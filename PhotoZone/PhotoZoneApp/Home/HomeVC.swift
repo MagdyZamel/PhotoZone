@@ -24,7 +24,7 @@ class HomeVC: BaseVC ,CAPSPageMenuDelegate , NVActivityIndicatorViewable{
     
     lazy var logoImage :UIImageView = {
         let logoImage = UIImageView()
-        logoImage.image = UIImage(named: "Logo")
+        logoImage.image = #imageLiteral(resourceName: "Logo")
         return logoImage
     }()
     

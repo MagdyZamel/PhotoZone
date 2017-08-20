@@ -24,9 +24,7 @@ class PagePresenter : OnPhotosResultProtocol {
         photoRepo = PhotosRepository()
         pageNumber = 1
         getMorePhotosFlag = false
-
         photoList = [Photo]()
-
         getPhotos(categoryName: categoryName)
 
     }
