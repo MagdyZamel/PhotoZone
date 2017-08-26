@@ -82,7 +82,7 @@ extension ImageFullScreenVC :ImageFullScreenViewProtocol{
     func showPhotoFullScreen(_ photo:Photo){
         photoImageView.kf.setImage(with: photo.url , placeholder: nil, options: nil, progressBlock: nil) { (image, error, cacheType, url) in
             if (error != nil) {
-                self.photoImageView.image = UIImage(named: "FrownFace")
+                self.photoImageView.image = #imageLiteral(resourceName: "FrownFace")
             }
             self.hideLoading()
 

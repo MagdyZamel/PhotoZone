@@ -16,7 +16,7 @@ enum APIService {
 
 extension APIService: TargetType {
 
-    var baseURL: URL { return URL(string: BASEDOMAIN)! }
+    var baseURL: URL { return URL(string: Singleton.baseDomain)! }
     
     var path:String{
         switch self {
@@ -38,9 +38,9 @@ extension APIService: TargetType {
         
         switch self {
         case .getPhotoForCategory(let category, let pageNumber):
-            return ["only":category,"sort":"created_at","image_size":"4","page":"\(pageNumber)","consumer_key":CONSUMERKEY]
+            return ["only":category,"sort":"created_at","image_size":"4","page":"\(pageNumber)","consumer_key":Singleton.consumerKey]
         case .search(let term , let pageNumber):
-            return ["term":term,"image_size":"4","page":"\(pageNumber)","consumer_key":CONSUMERKEY]
+            return ["term":term,"image_size":"4","page":"\(pageNumber)","consumer_key":Singleton.consumerKey]
         }
 
     }

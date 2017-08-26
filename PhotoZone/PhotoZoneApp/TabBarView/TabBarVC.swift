@@ -18,10 +18,10 @@ class TabBarVC: UITabBarController {
       self.viewControllers?.forEach({ (vc) in
         var tabBarItem:UITabBarItem!
         if let _  = vc as? HomeVC{
-             tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "HomeUnselected.png"), selectedImage: UIImage(named: "HomeSelected.png"))
+             tabBarItem = UITabBarItem(title: Strings.home, image: UIImage(named: "HomeUnselected.png"), selectedImage: UIImage(named: "HomeSelected.png"))
         }
         if let _  = vc as? SearchVC{
-            tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "SearchUnSelected.png"), selectedImage: UIImage(named: "SearchSelected.png"))
+            tabBarItem = UITabBarItem(title: Strings.search, image: UIImage(named: "SearchUnSelected.png"), selectedImage: UIImage(named: "SearchSelected.png"))
         }
         vc.tabBarItem = tabBarItem
      })

@@ -17,7 +17,7 @@ class ThumbCell: UITableViewCell {
         let uesrImage = UIImageView()
         uesrImage.layer.cornerRadius = 20
         uesrImage.clipsToBounds = true
-        uesrImage.image = UIImage(named: "PlaceHolder")
+        uesrImage.image = #imageLiteral(resourceName: "PlaceHolder")
         return uesrImage
     }()
     
@@ -47,7 +47,7 @@ class ThumbCell: UITableViewCell {
     lazy var namePhoto: UILabel = {
         let namePhoto = UILabel()
         namePhoto.numberOfLines = 1
-        namePhoto.textColor = UIColor.init(hexString: "#F32128")
+        namePhoto.textColor = UIColor.PhotoZone.red
         namePhoto.font = UIFont(name: "System", size: 19)
         
         return namePhoto
@@ -57,7 +57,7 @@ class ThumbCell: UITableViewCell {
     lazy var votesCount: UILabel = {
         let votesCount = UILabel()
         votesCount.numberOfLines = 1
-        votesCount.textColor = UIColor.init(hexString: "#13336D")
+        votesCount.textColor = UIColor.PhotoZone.darkBlue
         votesCount.font = UIFont(name: "System-Bold", size: 15)
         
         return votesCount
@@ -67,7 +67,7 @@ class ThumbCell: UITableViewCell {
         let LikedThisPhoto = UILabel()
         LikedThisPhoto.numberOfLines = 1
         LikedThisPhoto.text = "liked this photo"
-        LikedThisPhoto.textColor = UIColor.init(hexString: "#10245A")
+        LikedThisPhoto.textColor = UIColor.PhotoZone.darkBlue
         LikedThisPhoto.font = UIFont(name: "System", size: 13)
         
         
@@ -79,7 +79,7 @@ class ThumbCell: UITableViewCell {
         
         let photoTokenTime = UILabel()
         photoTokenTime.numberOfLines = 1
-        photoTokenTime.textColor = UIColor.init(hexString: "#AAAAAA")
+        photoTokenTime.textColor = UIColor.white
         photoTokenTime.font = UIFont(name: "System", size: 14)
         
         
@@ -89,7 +89,7 @@ class ThumbCell: UITableViewCell {
     lazy var disPhoto: UILabel = {
         let disPhoto = UILabel()
         disPhoto.numberOfLines = 1
-        disPhoto.textColor = UIColor.init(hexString: "#10245A")
+        disPhoto.textColor = UIColor.PhotoZone.darkBlue
         disPhoto.font = UIFont(name: "System", size: 14)
         
         return disPhoto
@@ -102,8 +102,8 @@ class ThumbCell: UITableViewCell {
     
     override func prepareForReuse() {
         
-        photo.image = UIImage(named: "PlaceHolder")
-        uesrImage.image = UIImage(named: "PlaceHolder")
+        photo.image = #imageLiteral(resourceName: "PlaceHolder")
+        uesrImage.image = #imageLiteral(resourceName: "PlaceHolder")
     }
     
     
@@ -115,7 +115,7 @@ class ThumbCell: UITableViewCell {
 
     }
     func layoutInitialization() {
-        contentView.backgroundColor = UIColor.init(hexString: "#F3F4F7")
+        contentView.backgroundColor = UIColor.PhotoZone.lightGary
         contentView.addSubview(mainview)
         mainview.snp.makeConstraints { (make) in
 

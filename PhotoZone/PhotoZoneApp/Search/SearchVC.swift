@@ -22,7 +22,7 @@ class SearchVC : BaseVC {
 
         let searchField = UITextField()
         searchField.delegate = self
-        searchField.placeholder = "  Search PhotoZone"
+        searchField.placeholder = Strings.searchPhotoZone
         searchField.backgroundColor = UIColor.cyan
         searchField.borderStyle = .roundedRect
         searchField.font = UIFont(name: "System", size: 14)
@@ -38,7 +38,7 @@ class SearchVC : BaseVC {
         list.tag = 1
         list.rowHeight = UITableViewAutomaticDimension
         list.estimatedRowHeight = 470
-        list.register(ThumbCell.self, forCellReuseIdentifier: "ThumbCell")
+        list.register(ThumbCell.self, forCellReuseIdentifier: Identifiers.thumbCell)
         return list
     }()
 
@@ -121,13 +121,13 @@ extension SearchVC : SearchViewProtocol{
 
     func showNoResult() {
         self.list.isHidden = true
-        self.presentAlert(title:nil,message: "Connection Lost")
+        self.presentAlert(title:Strings.errorOppsTitle,message: Strings.networkError)
 
     }
 
     func showInternetError() {
         self.list.isHidden = true
-        self.presentAlert(title:nil,message: "Connection Lost")
+        self.presentAlert(title:Strings.errorOppsTitle,message: Strings.networkError)
     }
 
     func stopLoading() {
@@ -149,7 +149,7 @@ extension SearchVC : UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
 
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ThumbCell", for: indexPath ) as! ThumbCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.thumbCell, for: indexPath ) as! ThumbCell
 
         cell.uesrName.text = self.photosList[indexPath.row].owner?.fullName
         cell.disPhoto.text = self.photosList[indexPath.row].description
@@ -157,8 +157,8 @@ extension SearchVC : UITableViewDataSource{
         cell.photoTokenTime.text = self.photosList[indexPath.row].takenAt
         cell.votesCount.text = "\(self.photosList[indexPath.row].votesCount) people "
 
-        cell.photo.kf.setImage(with: self.photosList[indexPath.row].url,placeholder: UIImage(named: "PlaceHolder"))
-        cell.uesrImage.kf.setImage(with: self.photosList[indexPath.row].owner?.userPicUrl,placeholder: UIImage(named: "PlaceHolder"))
+        cell.photo.kf.setImage(with: self.photosList[indexPath.row].url,placeholder: #imageLiteral(resourceName: "PlaceHolder"))
+        cell.uesrImage.kf.setImage(with: self.photosList[indexPath.row].owner?.userPicUrl,placeholder: #imageLiteral(resourceName: "PlaceHolder"))
         return cell
     }
 

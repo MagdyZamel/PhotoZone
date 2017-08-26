@@ -12,11 +12,8 @@
     class PageVC: BaseVC  {
 
          var  pagePersenter:PagePresenter!
-
-
         var categoryName :String!
         var photosList = [Photo]()
-
         lazy var loader: NVActivityIndicatorView = {
             let loader = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, w: 50, h: 50))
             loader.color = UIColor.darkGray
@@ -39,7 +36,7 @@
             list.rowHeight = UITableViewAutomaticDimension
             list.estimatedRowHeight = 470
             list.tag = 1
-            list.register(ThumbCell.self, forCellReuseIdentifier: "ThumbCell")
+            list.register(ThumbCell.self, forCellReuseIdentifier: Identifiers.thumbCell)
             return list
         }()
 
@@ -67,11 +64,13 @@
         func layoutInitialization() {
             self.view.addSubviews([list,loader])
             self.view.backgroundColor = UIColor.groupTableViewBackground
+            self.list.backgroundColor = UIColor.groupTableViewBackground
+            
             list.addSubview(self.refresher)
 
             list.snp.makeConstraints { (make) in
                 make.top.leading.trailing.equalTo(view).inset(0)
-                make.bottom.equalTo(view).inset(48)
+                make.bottom.equalTo(view).inset(0)
             }
 
             loader.snp.makeConstraints { (make) in
@@ -125,7 +124,7 @@
         }
 
         func showLoadFailure() {
-            debugPrint (" Error With Your Connection do your favourite behaviour \n  Drag to reload ")
+            debugPrint ("Failure")
         }
 
 
@@ -142,7 +141,7 @@
 
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ThumbCell", for: indexPath ) as! ThumbCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.thumbCell, for: indexPath ) as! ThumbCell
 
             //Set cell content
             cell.uesrName.text = self.photosList[indexPath.row].owner?.fullName
@@ -151,8 +150,8 @@
             cell.photoTokenTime.text = self.photosList[indexPath.row].takenAt
             cell.votesCount.text = "\(self.photosList[indexPath.row].votesCount) people "
             //Set cell images
-            cell.photo.kf.setImage(with: self.photosList[indexPath.row].url,placeholder: UIImage(named: "PlaceHolder"))
-            cell.uesrImage.kf.setImage(with: self.photosList[indexPath.row].owner?.userPicUrl,placeholder: UIImage(named: "PlaceHolder"))
+            cell.photo.kf.setImage(with: self.photosList[indexPath.row].url,placeholder: #imageLiteral(resourceName: "PlaceHolder"))
+            cell.uesrImage.kf.setImage(with: self.photosList[indexPath.row].owner?.userPicUrl,placeholder: #imageLiteral(resourceName: "PlaceHolder"))
             return cell
         }
 
