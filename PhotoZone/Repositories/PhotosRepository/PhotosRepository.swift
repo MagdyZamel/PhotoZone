@@ -14,37 +14,37 @@ class PhotosRepository: PhotosRepoProtocol {
     
     private let provider = MoyaProvider<APIService>()
 
-    func getPhotesWith(categoryName:String, pageNumber:Int, photoResult: OnPhotosResultProtocol) {
+    func getPhotesWith(categoryName:String, pageNumber:Int, photoResult: PhotosResultProtocol) {
         provider.request(.getPhotoForCategory(category: categoryName, pageNumber: pageNumber)) { (result) in
             switch result {
             case .success(let response):
                 do {
                     let photosModel = try response.mapObject(PhotosModel.self)
-                    photoResult.getPhotoOnSuccess(photosModel)
+                    photoResult.getPhotoSuccess(photosModel)
 
                 } catch {
-                    photoResult.getPhotoOnFailure()
+                    photoResult.getPhotoFailure()
                 }
             case .failure:
-                photoResult.getPhotoOnFailure()
+                photoResult.getPhotoFailure()
             }
             
         }
     }
     
-    func searchPhotesWith(key:String, pageNumber:Int, photoResult: OnPhotosResultProtocol) {
+    func searchPhotesWith(key:String, pageNumber:Int, photoResult: PhotosResultProtocol) {
         provider.request(.search(term: key, pageNumber: pageNumber)) { (result) in
             
             switch result {
             case .success(let response):
                 do {
                     let photosModel = try response.mapObject(PhotosModel.self)
-                    photoResult.getPhotoOnSuccess(photosModel)
+                    photoResult.getPhotoSuccess(photosModel)
                 } catch {
-                    photoResult.getPhotoOnFailure()
+                    photoResult.getPhotoFailure()
                 }
             case .failure:
-                photoResult.getPhotoOnFailure()
+                photoResult.getPhotoFailure()
             }
         }
     }

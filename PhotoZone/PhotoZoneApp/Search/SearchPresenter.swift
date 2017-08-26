@@ -7,24 +7,30 @@
 //
 
 import Foundation
-class SearchPresenter :OnPhotosResultProtocol {
+class SearchPresenter :PhotosResultProtocol {
 
-    weak var searchView: SearchViewProtocol!
-    var photorepo: PhotosRepository!
-    var pagenumber:Int!
-    var getMorePhotosFlag:Bool!
-    var photoList:[Photo]!
+    fileprivate weak var searchView: SearchViewProtocol!
+    fileprivate var photorepo: PhotosRepository!
+    fileprivate var pagenumber:Int!
+    fileprivate var getMorePhotosFlag:Bool!
+    fileprivate var photoList:[Photo]!
 
 
 
-    init(searchView:SearchViewProtocol) {
-        self.searchView = searchView
-        photorepo = PhotosRepository()
+    init(photoRepo:PhotosRepository){
+        photorepo = photoRepo
         pagenumber = 1
         photoList = [Photo]()
         getMorePhotosFlag = false
     }
 
+    func attachView(_ searchView:SearchViewProtocol) {
+        self.searchView = searchView
+    }
+
+    func detachView() {
+        searchView = nil
+    }
 
     func searchPhotosWith(key :String) {
         pagenumber = 1
@@ -41,12 +47,12 @@ class SearchPresenter :OnPhotosResultProtocol {
 
     }
 
-    func getPhotoOnFailure() {
+    func getPhotoFailure() {
         searchView.stopLoading()
         searchView.showInternetError()
     }
 
-    func getPhotoOnSuccess(_ photosModel: PhotosModel) {
+    func getPhotoSuccess(_ photosModel: PhotosModel) {
 
         if getMorePhotosFlag {
             searchView.stopLoading()

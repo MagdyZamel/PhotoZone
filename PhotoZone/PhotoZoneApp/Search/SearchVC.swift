@@ -46,8 +46,10 @@ class SearchVC : BaseVC {
 
     init() {
         super.init(nibName: nil, bundle: nil)
-        searchPresenter = SearchPresenter(searchView: self)
+        searchPresenter = SearchPresenter(photoRepo: PhotosRepository())
     }
+
+
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -57,6 +59,7 @@ class SearchVC : BaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchPresenter.attachView(self)
         layoutInitialization()
     }
 
@@ -82,6 +85,10 @@ class SearchVC : BaseVC {
         // Gesture to dismissKeyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchVC.dismissKeyboard))
         view.addGestureRecognizer(tap)
+    }
+
+    deinit {
+        searchPresenter.detachView()
     }
 
 

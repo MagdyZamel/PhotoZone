@@ -11,16 +11,15 @@
 
     class PageVC: BaseVC  {
 
-         var  pagePersenter:PagePresenter!
+        var pagePersenter:PagePresenter!
         var categoryName :String!
         var photosList = [Photo]()
+
         lazy var loader: NVActivityIndicatorView = {
             let loader = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, w: 50, h: 50))
             loader.color = UIColor.darkGray
             return loader
         }()
-
-        
 
         lazy var refresher : UIRefreshControl = {
             let refresher  = UIRefreshControl()
@@ -46,9 +45,11 @@
 
         init(with categoryName: String) {
             super.init(nibName: nil, bundle: nil)
-            pagePersenter = PagePresenter(pageView: self, categoryName: categoryName)
             self.categoryName = categoryName
             self.title = categoryName
+
+            pagePersenter = PagePresenter(photoRepo: PhotosRepository())
+
         }
 
         required init?(coder aDecoder: NSCoder) {
@@ -57,15 +58,15 @@
 
         override func viewDidLoad() {
             super.viewDidLoad()
+            pagePersenter.attachView(self, withCategoryName: categoryName)
             layoutInitialization()
         }
-
 
         func layoutInitialization() {
             self.view.addSubviews([list,loader])
             self.view.backgroundColor = UIColor.groupTableViewBackground
             self.list.backgroundColor = UIColor.groupTableViewBackground
-            
+
             list.addSubview(self.refresher)
 
             list.snp.makeConstraints { (make) in
@@ -96,6 +97,11 @@
         func refresh(){
             pagePersenter.getPhotos(categoryName: categoryName)
         }
+
+        deinit {
+            pagePersenter.detachView()
+        }
+
     }
 
     extension PageVC : PageViewProtocol {
@@ -154,7 +160,7 @@
             cell.uesrImage.kf.setImage(with: self.photosList[indexPath.row].owner?.userPicUrl,placeholder: #imageLiteral(resourceName: "PlaceHolder"))
             return cell
         }
-
+        
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             showImageInFullScreen?(photosList[indexPath.row])
         }

@@ -9,26 +9,32 @@
 import Foundation
 
 
-class PagePresenter : OnPhotosResultProtocol {
+class PagePresenter : PhotosResultProtocol {
     
-    weak var pageView : PageViewProtocol!
-    var photoRepo : PhotosRepository!
-    var photoList : [Photo]!
-    var pageNumber : Int!
-    var getMorePhotosFlag : Bool!
-    var categoryName : String!
-    
-    init(pageView:PageViewProtocol ,categoryName:String) {
+    fileprivate weak var pageView : PageViewProtocol!
+    fileprivate var photoRepo : PhotosRepository!
+    fileprivate var photoList : [Photo]!
+    fileprivate var pageNumber : Int!
+    fileprivate var getMorePhotosFlag : Bool!
+    fileprivate var categoryName : String!
+
+
+    init(photoRepo:PhotosRepository){
+        self.photoRepo = photoRepo
+    }
+
+    func attachView(_ pageView:PageViewProtocol , withCategoryName categoryName:String ){
         self.pageView = pageView
         self.categoryName = categoryName
-        photoRepo = PhotosRepository()
-        pageNumber = 1
-        getMorePhotosFlag = false
-        photoList = [Photo]()
         getPhotos(categoryName: categoryName)
 
     }
-    
+
+    func detachView() {
+        pageView = nil
+    }
+
+
     
     func getMorePhotos(categoryName :String) {
         getMorePhotosFlag = true
@@ -44,13 +50,13 @@ class PagePresenter : OnPhotosResultProtocol {
     }
 
 
-    func getPhotoOnFailure() {
+    func getPhotoFailure() {
         pageNumber = photoList.count / 20
         pageView.hideLoading()
         pageView.showLoadFailure()
     }
 
-    func getPhotoOnSuccess(_ photosModel: PhotosModel) {
+    func getPhotoSuccess(_ photosModel: PhotosModel) {
         pageView.hideLoading()
         if getMorePhotosFlag {
             self.photoList = self.photoList + photosModel.photos!

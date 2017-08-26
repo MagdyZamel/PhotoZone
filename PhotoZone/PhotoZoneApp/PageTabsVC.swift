@@ -37,7 +37,6 @@ class PageTabsVC: UIPageViewController {
 
         let direction:UIPageViewControllerNavigationDirection = index  > indexOfcurrentVC ? .forward:.reverse
         self.indexOfcurrentVC = index
-        print("index \(indexOfcurrentVC)")
         setViewControllers([orderedViewControllers[index]],direction: direction ,  animated: true,
                            completion: nil)
     }
@@ -49,7 +48,6 @@ extension PageTabsVC: UIPageViewControllerDataSource,UIPageViewControllerDelegat
 
         let pageContentViewController = pageViewController.viewControllers![0]
         indexOfcurrentVC = orderedViewControllers.index(of: pageContentViewController)!
-        print("indexOfcurrentVC \(indexOfcurrentVC)")
         pageTabsDeleagte?.pageTabsVC(didFinishAnimating: indexOfcurrentVC )
 
 

@@ -156,7 +156,6 @@ extension HomeVC:PageTabsVCDelegate{
 
     func pageTabsVC(didFinishAnimating indexOfCurrentVC: Int) {
         if let indexpaths = collectionViewPagesTitles.indexPathsForSelectedItems ,indexpaths.count != 0{
-            print(indexpaths.last!)
             let cell = collectionViewPagesTitles.cellForItem(at: indexpaths.last!) as! TitleCell
             cell.unSelectedCell()
         }

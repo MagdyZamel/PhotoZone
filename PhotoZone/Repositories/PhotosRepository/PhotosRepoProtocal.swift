@@ -10,12 +10,12 @@ import Foundation
 
 protocol PhotosRepoProtocol:class{
 
-    func getPhotesWith(categoryName:String, pageNumber:Int, photoResult: OnPhotosResultProtocol)
-    func searchPhotesWith(key:String, pageNumber:Int, photoResult: OnPhotosResultProtocol)
+    func getPhotesWith(categoryName:String, pageNumber:Int, photoResult: PhotosResultProtocol)
+    func searchPhotesWith(key:String, pageNumber:Int, photoResult: PhotosResultProtocol)
 }
 
-protocol OnPhotosResultProtocol:class{
+protocol PhotosResultProtocol:class{
 
-    func getPhotoOnSuccess(_ photosModel: PhotosModel )
-    func getPhotoOnFailure()
+    func getPhotoSuccess(_ photosModel: PhotosModel )
+    func getPhotoFailure()
 }

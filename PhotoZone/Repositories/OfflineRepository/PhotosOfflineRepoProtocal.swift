@@ -11,12 +11,12 @@ protocol PhotosOfflineRepoProtocol:class {
     
 }
 
-protocol OnPhotoResultOfflineProtocol :class{
+protocol PhotoResultOfflineProtocol :class{
 
-    func loadPhotosOnSuccess(_ photos: [Photo] )
-    func loadPhotoOnFailure()
+    func loadPhotosSuccessed(_ photos: [Photo] )
+    func loadPhotoFailure()
 
-    func savePhotosOnSuccess(_ photo: Photo )
-    func savePhotoOnFailure(_ photo: Photo)
+    func savePhotosSuccess(_ photo: Photo )
+    func savePhotoFailure(_ photo: Photo)
 
 }
